@@ -16,9 +16,19 @@ const RegisterPage = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      if(name === "") {
+        throw new Error("이름을 입력해주십시오.")
+      }
+      if(email === "") {
+        throw new Error("이메일을 입력해주십시오.")
+      }
+      if(password === "") {
+        throw new Error("패스워드를 입력해주십시오.")
+      }
       if (password !== secPassword) {
         throw new Error("아이디나 패스워드가 일치하지 않습니다.");
       }
+      
       const response = await api.post("/user", { name, email, password });
       if (response.status === 200) {
         navigate("/login");

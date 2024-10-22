@@ -15,6 +15,12 @@ const LoginPage = () => {
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
+      if(email === "") {
+        throw new Error("이메일을 입력해주십시오.")
+      }
+      if(password === "") {
+        throw new Error("패스워드을 입력해주십시오.")
+      }
       const response = await api.post("/user/login", { email, password });
       if (response.status === 200) {
         setUser(response.data.user);
