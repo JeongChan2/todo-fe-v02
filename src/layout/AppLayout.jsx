@@ -2,9 +2,8 @@ import React from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Outlet, useNavigate } from "react-router-dom";
 
-const AppLayout = ({ setUser }) => {
+const AppLayout = ({ user, setUser }) => {
   const token = sessionStorage.getItem("token");
-  console.log(token);
   const navigate = useNavigate();
   const toLoginPage = (event) => {
     event.preventDefault();
@@ -42,7 +41,10 @@ const AppLayout = ({ setUser }) => {
             </Nav>
             <Nav>
               {token ? (
-                <Nav.Link onClick={(event) => logout(event)}>Logout</Nav.Link>
+                <>
+                  <span onClick={null} className="p-2">{user?.name}님 환영합니다.</span>
+                  <Nav.Link onClick={(event) => logout(event)}>Logout</Nav.Link>
+                </>
               ) : (
                 <Nav.Link onClick={(event) => toLoginPage(event)}>
                   Login

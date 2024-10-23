@@ -31,7 +31,7 @@ function App() {
 
   return (
     <Routes>
-      <Route path="/" element={<AppLayout setUser={setUser}/>}>
+      <Route path="/" element={<AppLayout user={user} setUser={setUser}/>}>
         <Route
           index
           element={
