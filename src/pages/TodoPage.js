@@ -11,6 +11,7 @@ const TodoPage = () => {
 
   const getTasks = async () => {
     const response = await api.get("/tasks");
+    console.log("taskList", response.data.data);
     setTodoList(response.data.data);
   };
   useEffect(() => {
@@ -56,6 +57,12 @@ const TodoPage = () => {
       console.log("error", error);
     }
   };
+
+  const handleKeyDown = (event) => {
+    if (event.key === "Enter") {
+      addTodo();
+    }
+  };
   return (
     <Container>
       <Row className="add-item-row">
@@ -66,6 +73,7 @@ const TodoPage = () => {
             onChange={(event) => setTodoValue(event.target.value)}
             className="input-box"
             value={todoValue}
+            onKeyDown={(event) => handleKeyDown(event)}
           />
         </Col>
         <Col xs={12} sm={2}>

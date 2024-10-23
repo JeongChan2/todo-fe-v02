@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import { Outlet, useNavigate } from "react-router-dom";
 
-const AppLayout = () => {
+const AppLayout = ({ setUser }) => {
   const token = sessionStorage.getItem("token");
   console.log(token);
   const navigate = useNavigate();
@@ -12,9 +12,10 @@ const AppLayout = () => {
   };
   const logout = (event) => {
     event.preventDefault();
-    sessionStorage.removeItem('token');
+    sessionStorage.removeItem("token");
+    setUser(null);
     navigate("/login");
-  }
+  };
   return (
     <>
       <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary">
@@ -41,11 +42,9 @@ const AppLayout = () => {
             </Nav>
             <Nav>
               {token ? (
-                <Nav.Link onClick={logout}>
-                  Logout
-                </Nav.Link>
+                <Nav.Link onClick={(event) => logout(event)}>Logout</Nav.Link>
               ) : (
-                <Nav.Link onClick={toLoginPage}>
+                <Nav.Link onClick={(event) => toLoginPage(event)}>
                   Login
                 </Nav.Link>
               )}
